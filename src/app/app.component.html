@@ -1,0 +1,9 @@
+<section class="flex flex-col justify-center min-h-lvh mx-10 px-5">
+    <div class="m-10">
+        <app-file-input (responseList)="handleGroupList($event)"></app-file-input>
+    </div>
+    <app-grouped-data [groupedData]="groupedData"></app-grouped-data>
+    <div class="my-10">
+        <app-excel-data [excelData]="excelData"></app-excel-data>
+    </div>
+</section>

@@ -1,0 +1,147 @@
+@if (excelData) {
+<div class="w-full border border-gray-200 rounded-t-xl my-5">
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">Resource Name</th>
+                    <th scope="col" class="px-6 py-3">Resource Organization Email</th>
+                    <th scope="col" class="px-6 py-3">Resource Title</th>
+                    <th scope="col" class="px-6 py-3">Billing Rate</th>
+                    <th scope="col" class="px-6 py-3">($) Billing Rate Amount</th>
+                    <th scope="col" class="px-6 py-3">Working Days</th>
+                    <th scope="col" class="px-6 py-3">Currency Exchange Rate</th>
+                    <th scope="col" class="px-6 py-3">Currency</th>
+                    <th scope="col" class="px-6 py-3">Service Date</th>
+                    <th scope="col" class="px-6 py-3">Approval Date</th>
+                    <th scope="col" class="px-6 py-3">Approved By</th>
+                    <th scope="col" class="px-6 py-3">Billing Date</th>
+                    <th scope="col" class="px-6 py-3">Issued By</th>
+                    <th scope="col" class="px-6 py-3">Billing Status</th>
+                    <th scope="col" class="px-6 py-3">PO Manager Name</th>
+                    <th scope="col" class="px-6 py-3">PO Manager Organization Email</th>
+                    <th scope="col" class="px-6 py-3">Manager Name</th>
+                    <th scope="col" class="px-6 py-3">Manager Organization Email</th>
+                    <th scope="col" class="px-6 py-3">PO Number</th>
+                    <th scope="col" class="px-6 py-3">Account</th>
+                    <th scope="col" class="px-6 py-3">Portfolio</th>
+                    <th scope="col" class="px-6 py-3">Platform</th>
+                    <th scope="col" class="px-6 py-3">Department</th>
+                    <th scope="col" class="px-6 py-3">Resource Billing Start Date</th>
+                    <th scope="col" class="px-6 py-3">Resource Billing End Date</th>
+                    <th scope="col" class="px-6 py-3">Total Gross ($)</th>
+                    <th scope="col" class="px-6 py-3">Total Gross</th>
+                    <th scope="col" class="px-6 py-3">Settlement Action Needed</th>
+                    <th scope="col" class="px-6 py-3">Settlement Percentage</th>
+                    <th scope="col" class="px-6 py-3">Settlement Gross Amount</th>
+                    <th scope="col" class="px-6 py-3">Settlement Currency ($)</th>
+                    <th scope="col" class="px-6 py-3">Service Name</th>
+                    <th scope="col" class="px-6 py-3">Service Description</th>
+                    <th scope="col" class="px-6 py-3">Association Notes</th>
+                    <th scope="col" class="px-6 py-3">PO Notes</th>
+                    <th scope="col" class="px-6 py-3">Discount Percentage</th>
+                    <th scope="col" class="px-6 py-3">Discount Amount</th>
+                    <th scope="col" class="px-6 py-3">Discount Currency</th>
+                    <th scope="col" class="px-6 py-3">($) Discount Amount</th>
+                    <th scope="col" class="px-6 py-3">Hiring Date</th>
+                    <th scope="col" class="px-6 py-3">Last Working Day</th>
+                    <th scope="col" class="px-6 py-3">Status</th>
+                    <th scope="col" class="px-6 py-3">Contract Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (item of excelData; track $index) {
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['Resource Name']}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['Resource Organization Email']}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['Resource Title']}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['Billing Rate']}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['($) Billing Rate Amount']}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['Working Days']}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['Currency Exchange Rate']}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.Currency}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['Service Date'] | date:'medium'}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['Approval Date'] | date:'medium'}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['Approved By']}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['Billing Date'] | date:'medium'}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['Issued By']}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['Billing Status']}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['PO Manager Name']}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['PO Manager Organization Email']}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['Manager Name']}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['Manager Organization Email']}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['PO Number']}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.Account}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.Portfolio}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.Platform}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.Department}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['Resource Billing Start Date'] | date:'medium'}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['Resource Billing End Date'] | date:'medium'}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['($) Total Gross']| currency:'USD'}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['Total Gross'] | currency:'EGP'}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['Settlement Action Needed']}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['Settlement Percentage']}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['Settlement Gross Amount'] | currency:'USD'}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['Settlement Currency']}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['Service Name']}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['Service Description']}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['Association Notes']}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['PO Notes']}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['Discount Percentage']}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['Discount Amount'] | currency:'USD'}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['Discount Currency']}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['($) Discount Amount'] | currency:'USD'}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['Hiring Date'] | date:'medium'}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['Last Working Day'] | date:'medium'}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.Status}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{item.data?.['Contract Type']}}</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+}

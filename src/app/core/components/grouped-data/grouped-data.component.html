@@ -1,0 +1,276 @@
+@if (groupedData) {
+
+<div class="max-w-screen-lg mx-auto my-5">
+    <form [formGroup]="currencyForm" (ngSubmit)="onSubmit()">
+        <div class="relative mt-4">
+            <input type="text" id="exchange_rate" formControlName="exchangeRate"
+                class="block rounded-lg px-2.5 pb-2.5 pt-5 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=" " />
+            <label for="exchange_rate"
+                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">
+                Exchange Rate (USD to EGP)</label>
+        </div>
+
+        <div [ngClass]="{
+                'block': (currencyForm.get('exchangeRate')?.touched && currencyForm.getError('pattern')),
+                'hidden': (currencyForm.valid),
+                'p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400': true}"
+            role="alert">
+            <span class="font-medium">Invalid Input!</span>
+        </div>
+    </form>
+</div>
+
+
+<div class="w-full border border-gray-200 rounded-t-xl my-5">
+    <div id="heading-1">
+        <button type="button" (click)="toggleBody('serviceDate')"
+            class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
+            data-accordion-target="#body-1" aria-expanded="true" aria-controls="body-1">
+            <span class="px-6 py-3  text-gray-700 uppercase font-bold">Service Date</span>
+            <div class=" w-full relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Total Billing Rate (EGP)
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Total Gross Salary (EGP)
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Total Gross Salary ($)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <td class="px-6 py-4">
+                                {{groupedData.groupedByServiceDate.totalBillingRate| currency:'EGP'}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{groupedData.groupedByServiceDate.totalGrossSalary | currency:'EGP'}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{groupedData.groupedByServiceDate.totalGrossSalaryUsd | currency:'USD'}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <i class="fa-solid fa-chevron-down"></i>
+        </button>
+    </div>
+
+    <div class="content" [class.hidden]="bodyStates.serviceDate">
+        <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Service Date
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Subtotal Billing Rate
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                subtotal Gross Salary (EGP)
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                subtotal Gross Salary ($)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (service of groupedData.groupedByServiceDate.groups; track $index) {
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{service.serviceDate | date:'medium'}}
+                            </th>
+                            <td class="px-6 py-4">
+                                {{service.subtotalBillingRate | currency:'EGP'}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{service.subtotalGrossSalary | currency:'EGP'}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{service.subtotalGrossSalaryUsd | currency:'USD'}}
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="heading-2">
+        <button type="button" (click)="toggleBody('poNumber')"
+            class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
+            data-accordion-target="#body-1" aria-expanded="true" aria-controls="body-1">
+            <span class="px-6 py-3  text-gray-700 uppercase font-bold">PO Number</span>
+            <div class="w-full relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Total Billing Rate (EGP)
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Total Gross Salary (EGP)
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Total Gross Salary ($)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <td class="px-6 py-4">
+                                {{groupedData.groupedByPONumber.totalBillingRate| currency:'EGP'}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{groupedData.groupedByPONumber.totalGrossSalary | currency:'EGP'}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{groupedData.groupedByPONumber.totalGrossSalaryUsd | currency:'USD'}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <i class="fa-solid fa-chevron-down"></i>
+        </button>
+    </div>
+
+    <div class="content" [class.hidden]="bodyStates.poNumber">
+        <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                PO Number
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Subtotal Billing Rate
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                subtotal Gross Salary (EGP)
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                subtotal Gross Salary ($)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (service of groupedData.groupedByPONumber.groups; track $index) {
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{service.poNumber}}
+                            </th>
+                            <td class="px-6 py-4">
+                                {{service.subtotalBillingRate | currency:'EGP'}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{service.subtotalGrossSalary | currency:'EGP'}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{service.subtotalGrossSalaryUsd | currency:'USD'}}
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="heading-3">
+        <button type="button" (click)="toggleBody('account')"
+            class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
+            data-accordion-target="#body-1" aria-expanded="true" aria-controls="body-1">
+            <span class="px-6 py-3  text-gray-700 uppercase font-bold">Account</span>
+            <div class=" w-full relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Total Billing Rate (EGP)
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Total Gross Salary (EGP)
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Total Gross Salary ($)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <td class="px-6 py-4">
+                                {{groupedData.groupedByAccount.totalBillingRate| currency:'EGP'}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{groupedData.groupedByAccount.totalGrossSalary | currency:'EGP'}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{groupedData.groupedByAccount.totalGrossSalaryUsd | currency:'USD'}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <i class="fa-solid fa-chevron-down"></i>
+        </button>
+    </div>
+
+    <div class="content" [class.hidden]="bodyStates.account">
+        <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Account
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Subtotal Billing Rate
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                subtotal Gross Salary (EGP)
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                subtotal Gross Salary ($)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (service of groupedData.groupedByAccount.groups; track $index) {
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{service.account}}
+                            </th>
+                            <td class="px-6 py-4">
+                                {{service.subtotalBillingRate | currency:'EGP'}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{service.subtotalGrossSalary | currency:'EGP'}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{service.subtotalGrossSalaryUsd | currency:'USD'}}
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+}
